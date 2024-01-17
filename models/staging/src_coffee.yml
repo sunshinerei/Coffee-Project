@@ -10,4 +10,4 @@ sources:
         description: Clean data set with minimum columns.
 
       - name: dirty
-        description: Dirty data set with description columns included
+        description: Dirty data set with scoring columns.

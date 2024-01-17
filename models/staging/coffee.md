@@ -30,7 +30,7 @@ Coloromiter Measurements of the color of the beans:
 
 Estimated price of coffee beans standardized to US Dollars
 
-The following exchange rates were used at the time of dataset creation:
+The following exchange rates were used at the time of dataset creation (January 2023):
 
 | exchange | exchange rate |
 
