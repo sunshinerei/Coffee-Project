@@ -1,0 +1,110 @@
+version 2
+
+models:
+  - name: stg_attributes
+    description: Staged coffee attribute data.
+    columns: 
+      - name: ID
+        description: The composite primary key for attributes (name and roaster).
+
+      - name: name
+        description: The name of the coffee bean.
+
+      - name: roaster
+        description: The name of the roastery.
+
+      - name: roast
+        description: The color of the bean.
+
+      - name: loc_country
+        description: Roaster location country.
+
+      - name: origin_1
+        description: Bean origin specific area.
+
+      - name origin_2
+        description: Bean origin general area.
+
+      - name: agtron
+        description: '{{ doc("agtron") }}' 
+    
+      - name: USD_100g
+        description: '{{ doc("USD_100g") }}' 
+
+  - name: stg_reviews
+    description: Staged rating data
+    columns:
+      - name: ID
+        description: The composite primary key for reviews (name and roaster).
+
+      - name: rating
+        description: The overal rating of the coffee (50-100)
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 50
+              inclusive: true
+              max_value: 100
+              inclusive: true
+
+      - name: aroma
+        description: aroma grade (0-10)
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+              max_value: 10
+              inclusive: true
+
+      - name: acid
+        description: acid grade (0-10)
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+              max_value: 10
+              inclusive: true
+
+      - name: body
+        description: body grade (0-10)
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+              max_value: 10
+              inclusive: true
+
+      - name: flavor
+        description: flavor grade (0-10)
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+              max_value: 10
+              inclusive: true
+
+      - name: aftertaste
+        description: aftertaste grade (0-10)
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+              max_value: 10
+              inclusive: true
+
+      - name: aroma
+        description: with_milk grade (optional) (0-10)
+
+      - name: review date
+        description: Date of review.
+
+      - name: desc_1
+        description: "Blind Assessment"
+
+      - name: desc_2
+        description: "Notes"
+
+      - name: desc_3
+        description: "Bottom Line"
+
+      - name: tasting_notes
+        description: Tasting note keywords.

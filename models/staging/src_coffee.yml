@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: coffee
+    description: A clone of a csv file scraped from "coffeereview.com".
+    database: coffee-reviews-410823
+    schema: coffee
+    tables:
+      - name: clean
+        description: Clean data set with minimum columns.
+
+      - name: dirty
+        description: Dirty data set with description columns included
