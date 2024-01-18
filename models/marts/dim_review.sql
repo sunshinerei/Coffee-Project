@@ -16,7 +16,7 @@ final as (
         dirty.coffee_id,
         attributes.review_date,
         attributes.rating,
-        ROUND(attributes.USD_100g/(attributes.rating-50), 2),
+        ROUND(attributes.USD_100g/(attributes.rating-50), 2) AS cost_per_point,
         dirty.aroma,
         dirty.acid,
         dirty.body,

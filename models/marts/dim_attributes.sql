@@ -4,12 +4,6 @@ with clean as (
 
 ),
 
-dirty as (
-
-    select * from {{ ref('stg_dirty') }}
-
-),
-
 type as (
 
     select
@@ -173,6 +167,67 @@ type as (
 
 ),
 
+processing as (
+
+    select
+        coffee_id,
+        CASE
+             WHEN CONTAINS_SUBSTR(name , 'natural') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'natural') THEN 'Yes'
+
+        ELSE 'No' END AS natural_process,
+        CASE
+             WHEN CONTAINS_SUBSTR(name , 'washed') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'washed') THEN 'Yes'
+
+        ELSE 'No' END AS washed_process,
+        CASE
+             WHEN CONTAINS_SUBSTR(name , 'wet_hulled') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'wet_hulled') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'semi-washed') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'semi-washed') THEN 'Yes'
+
+        ELSE 'No' END AS semi_washed_process,
+        CASE
+             WHEN CONTAINS_SUBSTR(name , 'honey') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'honey') THEN 'Yes'
+
+        ELSE 'No' END AS honey_process,
+        CASE
+             WHEN CONTAINS_SUBSTR(name , 'fruit maceration') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'fruit maceration') THEN 'Yes'
+
+        ELSE 'No' END AS fruit_maceration,
+        CASE
+             WHEN CONTAINS_SUBSTR(name , 'anaerobic') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'anaerobic') THEN 'Yes'
+
+        ELSE 'No' END AS anaerobic_fermentation,
+        CASE
+             WHEN CONTAINS_SUBSTR(name , 'lactic') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'lactic') THEN 'Yes'
+
+        ELSE 'No' END AS lactic_fermentation,
+        CASE
+             WHEN CONTAINS_SUBSTR(name , 'carbonic maceration') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'carbonic maceration') THEN 'Yes'
+
+        ELSE 'No' END AS carbonic_fermentation,
+        CASE
+             WHEN CONTAINS_SUBSTR(name , 'wine yeast') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'wine yeast') THEN 'Yes'
+
+        ELSE 'No' END AS wine_fermentation,
+        CASE
+             WHEN CONTAINS_SUBSTR(name , 'koji') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'koji') THEN 'Yes'
+
+        ELSE 'No' END AS koji_fermentation
+
+    FROM clean
+
+),
+
 final as (
 
     select
@@ -180,17 +235,26 @@ final as (
         clean.name,
         clean.roaster,
         clean.roast,
-        type.species,
-        type.variety_cultivar,
         clean.loc_country,
         clean.origin_1,
         clean.origin_2,
-        clean.USD_100g
+        clean.USD_100g,
+        type.species,
+        type.variety_cultivar,
+        processing.natural_process,
+        processing.washed_process,
+        processing.semi_washed_process,
+        processing.honey_process,
+        processing.fruit_maceration,
+        processing.anaerobic_fermentation,
+        processing.lactic_fermentation,
+        processing.carbonic_fermentation,
+        processing.wine_fermentation,
+        processing.koji_fermentation
 
     from clean
-    
-    left join dirty using (coffee_id)
     left join type using (coffee_id)
+    left join processing using (coffee_id)
     WHERE clean.roast IS NOT NULL
 
 )
