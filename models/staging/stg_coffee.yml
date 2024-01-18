@@ -14,7 +14,7 @@ models:
         description: The name of the roastery.
 
       - name: roast
-        description: The color of the bean.
+        description: The color of the bean based on agtron results.
 
       - name: loc_country
         description: Roaster location country.

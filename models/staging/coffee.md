@@ -1,6 +1,6 @@
 {% docs agtron %}
 
-Coloromiter Measurements of the color of the beans:
+Spectrophotometer, Agtron, Measurements of the color of the beans:
 
 | range | roast level name |
 
