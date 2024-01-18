@@ -13,17 +13,20 @@ dirty as (
 final as (
 
     select
-        clean.*,
-        dirty.aroma,
-        dirty.acid,
-        dirty.body,
-        dirty.flavor,
-        dirty.aftertaste,
-        dirty.with_milk
+        clean.coffee_id,
+        clean.name,
+        clean.roaster,
+        clean.roast,
+        clean.loc_country,
+        clean.origin_1,
+        clean.origin_2,
+        clean.USD_100g,
+        dirty.agtron
 
     from clean
     
     left join dirty using (coffee_id)
+    WHERE clean.roast IS NOT NULL
 
 )
 

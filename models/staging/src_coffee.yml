@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: coffee
-    description: A clone of a csv file scraped from "coffeereview.com".
+    description: A clone of a csv file scraped from "coffeereview.com". https://www.kaggle.com/datasets/hanifalirsyad/coffee-scrap-coffeereview/data
     database: coffee-reviews-410823
     schema: coffee
     tables:
