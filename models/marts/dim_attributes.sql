@@ -235,7 +235,7 @@ final as (
         clean.name,
         clean.roaster,
         clean.roast,
-        clean.loc_country,
+        clean.loc_country as roaster_country,
         clean.origin_1,
         clean.origin_2,
         clean.USD_100g,
