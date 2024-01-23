@@ -1,6 +1,6 @@
 {% docs agtron %}
 
-Spectrophotometer, Agtron, Measurements of the color of the beans:
+Spectrophotometer Measurements taken on an M-Basic Agtron (of the whole bean and ground coffee) and their corresponding roast_name:
 
 | range | roast level name |
 

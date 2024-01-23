@@ -4,6 +4,12 @@ with clean as (
 
 ),
 
+dirty as (
+
+    select * from {{ ref('stg_dirty') }}
+
+),
+
 type as (
 
     select
@@ -228,6 +234,45 @@ processing as (
 
 ),
 
+agtron as (
+
+    select
+        coffee_id,
+        (SAFE_CAST(ground_agtron AS INTEGER)+SAFE_CAST(whole_bean_agtron AS INTEGER))/2 AS avg_agtron
+    
+    from
+    (
+    select
+        coffee_id,
+        SPLIT(agtron, '/')[OFFSET(0)] AS ground_agtron,
+        SPLIT(agtron, '/')[OFFSET(1)] AS whole_bean_agtron
+    from dirty) temp_1
+
+),
+
+roast as (
+
+    select
+        coffee_id,
+        CASE
+            WHEN avg_agtron >  80 THEN 'Lighter than Arabic Roast'
+            WHEN avg_agtron <= 80 AND avg_agtron > 70 THEN 'Arabic Roast'
+            WHEN avg_agtron <= 70 AND avg_agtron > 58 THEN 'Cinnammon Roast'
+            WHEN avg_agtron <= 58 AND avg_agtron > 50 THEN 'New England Roast'
+            WHEN avg_agtron <= 50 AND avg_agtron > 45 THEN 'American Roast'
+            WHEN avg_agtron <= 45 AND avg_agtron > 40 THEN 'City Roast'
+            WHEN avg_agtron <= 40 AND avg_agtron > 35 THEN 'Full City Roast'
+            WHEN avg_agtron <= 35 AND avg_agtron > 30 THEN 'Vienna Roast'
+            WHEN avg_agtron <= 30 AND avg_agtron > 25 THEN 'French Roast'
+            WHEN avg_agtron <= 25 AND avg_agtron > 15 THEN 'Italian Roast'
+            WHEN avg_agtron <= 15 THEN 'Darker than Italian Roast'
+
+        END as roast_name
+
+    from agtron
+
+),
+
 final as (
 
     select
@@ -235,6 +280,8 @@ final as (
         clean.name,
         clean.roaster,
         clean.roast,
+        roast.roast_name,
+        agtron.avg_agtron,
         clean.loc_country as roaster_country,
         clean.origin_1,
         clean.origin_2,
@@ -255,6 +302,8 @@ final as (
     from clean
     left join type using (coffee_id)
     left join processing using (coffee_id)
+    left join agtron using (coffee_id)
+    left join roast using (coffee_id)
     WHERE clean.roast IS NOT NULL
 
 )
