@@ -5,7 +5,7 @@ with source as (
 
 staged as (
     select
-        CONCAT(name, roaster, review_date) AS coffee_id,
+        CONCAT(name, review_date) AS coffee_id,
         name,
         roaster,
         roast,

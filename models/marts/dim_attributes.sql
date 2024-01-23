@@ -238,14 +238,18 @@ agtron as (
 
     select
         coffee_id,
-        (SAFE_CAST(ground_agtron AS INTEGER)+SAFE_CAST(whole_bean_agtron AS INTEGER))/2 AS avg_agtron
+        agtron,
+        whole_bean_agtron,
+        grounds_agtron,
+        (SAFE_CAST(whole_bean_agtron AS INTEGER)+SAFE_CAST(grounds_agtron AS INTEGER))/2 AS avg_agtron
     
     from
     (
     select
         coffee_id,
-        SPLIT(agtron, '/')[OFFSET(0)] AS ground_agtron,
-        SPLIT(agtron, '/')[OFFSET(1)] AS whole_bean_agtron
+        agtron,
+        SPLIT(agtron, '/')[OFFSET(0)] AS whole_bean_agtron,
+        SPLIT(agtron, '/')[OFFSET(1)] AS grounds_agtron
     from dirty) temp_1
 
 ),
@@ -282,6 +286,9 @@ final as (
         clean.roast,
         roast.roast_name,
         agtron.avg_agtron,
+        agtron.agtron,
+        agtron.whole_bean_agtron,
+        agtron.grounds_agtron,
         clean.loc_country as roaster_country,
         clean.origin_1,
         clean.origin_2,
@@ -300,11 +307,10 @@ final as (
         processing.koji_fermentation
 
     from clean
-    left join type using (coffee_id)
-    left join processing using (coffee_id)
-    left join agtron using (coffee_id)
-    left join roast using (coffee_id)
-    WHERE clean.roast IS NOT NULL
+    left join type ON clean.coffee_id = type.coffee_id
+    left join processing ON clean.coffee_id = processing.coffee_id
+    left join agtron ON clean.coffee_id = agtron.coffee_id
+    left join roast ON clean.coffee_id = roast.coffee_id
 
 )
 
