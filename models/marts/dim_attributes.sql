@@ -178,57 +178,57 @@ processing as (
     select
         coffee_id,
         CASE
-             WHEN CONTAINS_SUBSTR(name , 'natural') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'natural') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'natural') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'natural') THEN 1
 
-        ELSE 'No' END AS natural_process,
+        ELSE 0 END AS natural_process,
         CASE
-             WHEN CONTAINS_SUBSTR(name , 'washed') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'washed') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'washed') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'washed') THEN 1
 
-        ELSE 'No' END AS washed_process,
+        ELSE 0 END AS washed_process,
         CASE
-             WHEN CONTAINS_SUBSTR(name , 'wet_hulled') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'wet_hulled') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(name , 'semi-washed') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'semi-washed') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'wet_hulled') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'wet_hulled') THEN 1
+             WHEN CONTAINS_SUBSTR(name , 'semi-washed') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'semi-washed') THEN 1
 
-        ELSE 'No' END AS semi_washed_process,
+        ELSE 0 END AS semi_washed_process,
         CASE
-             WHEN CONTAINS_SUBSTR(name , 'honey') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'honey') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'honey') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'honey') THEN 1
 
-        ELSE 'No' END AS honey_process,
+        ELSE 0 END AS honey_process,
         CASE
-             WHEN CONTAINS_SUBSTR(name , 'fruit maceration') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'fruit maceration') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'fruit maceration') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'fruit maceration') THEN 1
 
-        ELSE 'No' END AS fruit_maceration,
+        ELSE 0 END AS fruit_maceration,
         CASE
-             WHEN CONTAINS_SUBSTR(name , 'anaerobic') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'anaerobic') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'anaerobic') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'anaerobic') THEN 1
 
-        ELSE 'No' END AS anaerobic_fermentation,
+        ELSE 0 END AS anaerobic_fermentation,
         CASE
-             WHEN CONTAINS_SUBSTR(name , 'lactic') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'lactic') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'lactic') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'lactic') THEN 1
 
-        ELSE 'No' END AS lactic_fermentation,
+        ELSE 0 END AS lactic_fermentation,
         CASE
-             WHEN CONTAINS_SUBSTR(name , 'carbonic maceration') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'carbonic maceration') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'carbonic maceration') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'carbonic maceration') THEN 1
 
-        ELSE 'No' END AS carbonic_fermentation,
+        ELSE 0 END AS carbonic_fermentation,
         CASE
-             WHEN CONTAINS_SUBSTR(name , 'wine yeast') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'wine yeast') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'wine yeast') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'wine yeast') THEN 1
 
-        ELSE 'No' END AS wine_fermentation,
+        ELSE 0 END AS wine_fermentation,
         CASE
-             WHEN CONTAINS_SUBSTR(name , 'koji') THEN 'Yes'
-             WHEN CONTAINS_SUBSTR(desc_2 , 'koji') THEN 'Yes'
+             WHEN CONTAINS_SUBSTR(name , 'koji') THEN 1
+             WHEN CONTAINS_SUBSTR(desc_2 , 'koji') THEN 1
 
-        ELSE 'No' END AS koji_fermentation
+        ELSE 0 END AS koji_fermentation
 
     FROM clean
 
@@ -269,9 +269,9 @@ roast as (
             WHEN avg_agtron <= 35 AND avg_agtron > 30 THEN 'Vienna Roast'
             WHEN avg_agtron <= 30 AND avg_agtron > 25 THEN 'French Roast'
             WHEN avg_agtron <= 25 AND avg_agtron > 15 THEN 'Italian Roast'
-            WHEN avg_agtron <= 15 THEN 'Darker than Italian Roast'
+            WHEN avg_agtron <= 15 AND avg_agtron > 0 THEN 'Darker than Italian Roast'
 
-        END as roast_name
+        ELSE 'Unknown' END as roast_name
 
     from agtron
 

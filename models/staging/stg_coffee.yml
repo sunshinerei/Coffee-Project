@@ -6,6 +6,7 @@ models:
     columns:
       - name: coffee_id
         description: The composite primary key clean (name and roaster).
+        
 
       - name: name
         description: The name of the coffee bean.

@@ -29,7 +29,7 @@ final as (
         SPLIT(clean.desc_1, '.')[OFFSET(1)] AS tasting_notes
 
     from clean
-    left join dirty using (coffee_id)
+    left join dirty on clean.coffee_id = dirty.coffee_id
 
 )
 
