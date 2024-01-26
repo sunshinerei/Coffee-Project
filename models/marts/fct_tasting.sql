@@ -224,4 +224,3 @@ select
     as tasting_notes,
     tasting_category
 from category
-WHERE tasting_category = 'other'
