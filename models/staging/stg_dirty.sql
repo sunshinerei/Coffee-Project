@@ -7,7 +7,9 @@ with source as (
 staged as (
 
     select
-        DISTINCT CONCAT(name, roaster, review_date) AS coffee_id,
+        translate(name, "ŠŽšžŸÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðñòóôõöùúûüýÿ", "SZszYAAAAAACEEEEIIIIDNOOOOOUUUUYaaaaaaceeeeiiiidnooooouuuuyy") as name,
+        translate(roaster, "ŠŽšžŸÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðñòóôõöùúûüýÿ", "SZszYAAAAAACEEEEIIIIDNOOOOOUUUUYaaaaaaceeeeiiiidnooooouuuuyy") as roaster,
+        review_date,
         agtron,
         aroma,
         acid,
@@ -19,4 +21,7 @@ staged as (
 
 )
 
-select * from staged
+select
+DISTINCT CONCAT(name, roaster, review_date) AS coffee_id,
+*
+from staged
