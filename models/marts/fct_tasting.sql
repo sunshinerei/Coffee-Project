@@ -1236,9 +1236,9 @@ select
     , 'hint of ', ''))
     , '-like flowers', '')
     as tasting_notes,
-    taste,
-    detailed_category,
+    general_category,
     descriptive_category,
-    general_category
+    detailed_category,
+    taste
 
 from categories
