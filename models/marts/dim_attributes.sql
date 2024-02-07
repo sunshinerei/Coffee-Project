@@ -17,6 +17,8 @@ type as (
         CASE
              WHEN CONTAINS_SUBSTR(desc_2 , 'hibrido de timor') THEN 'Timor Hybrid'
              WHEN CONTAINS_SUBSTR(desc_2 , 'timor hybrid') THEN 'Timor Hybrid'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'aramosa') THEN 'Aramosa'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'racemosa') THEN 'Racemosa'
              WHEN CONTAINS_SUBSTR(desc_2 , 'eugenioides') THEN 'Eugenioides'
              WHEN CONTAINS_SUBSTR(desc_2 , 'excelsa') THEN 'Excelsa'
              WHEN CONTAINS_SUBSTR(desc_2 , 'liberica') THEN 'Liberica'
@@ -26,7 +28,7 @@ type as (
              
              ELSE 'Unknown' END AS species,
         CASE 
-             WHEN CONTAINS_SUBSTR(desc_2 , 'kona') THEN 'Kona'
+             
              WHEN CONTAINS_SUBSTR(desc_2 , 'blue mountain') THEN 'Blue Mountain'
              WHEN CONTAINS_SUBSTR(desc_2 , 'sumatra') THEN 'Sumatra'
              WHEN CONTAINS_SUBSTR(desc_2 , 'criolla') THEN 'Criolla'
@@ -57,6 +59,7 @@ type as (
              WHEN CONTAINS_SUBSTR(desc_2 , 'mibrizi') THEN 'Mibrizi'
              WHEN CONTAINS_SUBSTR(desc_2 , 'mayaguez') THEN 'Mayaguez'
              WHEN CONTAINS_SUBSTR(desc_2 , 'bourbon chocola') THEN 'Bourbon Chocola'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'laurina') THEN 'Bourbon pointu'
              WHEN CONTAINS_SUBSTR(desc_2 , 'semperflorens') THEN 'Semperflorens'
              WHEN CONTAINS_SUBSTR(desc_2 , 'arusha') THEN 'Arusha'
              WHEN CONTAINS_SUBSTR(desc_2 , 'ibairi') THEN 'Ibairi'
@@ -68,6 +71,7 @@ type as (
              WHEN CONTAINS_SUBSTR(desc_2 , 'typica') THEN 'Typica'
 
              WHEN CONTAINS_SUBSTR(desc_2 , 'gesha') THEN 'Gesha'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'geisha') THEN 'Gesha'
              WHEN CONTAINS_SUBSTR(desc_2 , 'harrar') THEN 'Harrar'
              WHEN CONTAINS_SUBSTR(desc_2 , 'yirgacheffe') THEN 'Yirgacheffe'
              WHEN CONTAINS_SUBSTR(desc_2 , 'djimma') THEN 'Djimma'
@@ -166,6 +170,14 @@ type as (
              WHEN CONTAINS_SUBSTR(desc_2 , 'kalimas') THEN 'Kalimas'
              WHEN CONTAINS_SUBSTR(desc_2 , 'menado') THEN 'Menado'
              WHEN CONTAINS_SUBSTR(desc_2 , 'kawisari') THEN 'Kawisari'
+
+             WHEN CONTAINS_SUBSTR(desc_2 , 'sidra') THEN 'Sidra'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'mocca') THEN 'Mocca'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'udaini') THEN 'Udaini'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'cioiccie') THEN 'Cioiccie'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'mokkita') THEN 'Mokkita'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'ethiopia landrace') THEN 'ethiopia landrace'
+             WHEN CONTAINS_SUBSTR(desc_2 , 'kona') THEN 'Kona'
 
              ELSE 'Unknown' END AS variety_cultivar
 
